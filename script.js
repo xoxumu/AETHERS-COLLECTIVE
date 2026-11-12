@@ -3,15 +3,14 @@ const welcomeDialog = document.querySelector('#welcome-dialog');
 const welcomeLoader = document.querySelector('#welcome-loader');
 const premiumOfferDialog = document.querySelector('#premium-offer-dialog');
 const saleForm = document.querySelector('#sale-form');
-const contactInput = document.querySelector('#contact-value');
-const contactLabel = document.querySelector('#contact-label');
 const saleBotLink = document.querySelector('.sale-bot-link');
-const sellerUsernameField = document.querySelector('.seller-username-field');
 const sellerUsernameInput = document.querySelector('#seller-username');
 const buyerUsernameInput = document.querySelector('#buyer-username');
-const nftNameInput = document.querySelector('#nft-name');
-const nftModelInput = document.querySelector('#nft-model');
 const nftPriceInput = document.querySelector('#nft-price');
+const nftReferenceInput = document.querySelector('#nft-reference');
+const nftReferenceLabel = document.querySelector('#nft-reference-label');
+const nftReferenceHint = document.querySelector('#nft-reference-hint');
+const nftReferenceModeButtons = document.querySelectorAll('.nft-reference-mode');
 const proposalMessage = document.querySelector('#proposal-message');
 const copyProposalButton = document.querySelector('#copy-proposal');
 const copyStatus = document.querySelector('#copy-status');
@@ -21,7 +20,7 @@ const collectionDetailDescription = document.querySelector('#collection-detail-d
 const collectionDetailImage = document.querySelector('#collection-detail-image');
 const menuToggle = document.querySelector('.menu-toggle');
 const mainNav = document.querySelector('#main-nav');
-let contactMethod = 'telegram';
+let nftReferenceMode = 'model';
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 document.documentElement.classList.add('motion-ready');
@@ -309,110 +308,111 @@ document.querySelectorAll('.offer-dialog').forEach((currentDialog) => {
   });
 });
 
-function isValidTonAddress(value) {
-  if (!/^[A-Za-z0-9_-]{48}$/.test(value)) return false;
+const telegramUsernamePattern = /^@?[A-Za-z][A-Za-z0-9_]{4,31}$/;
+const englishModelPattern = /^[A-Za-z]+(?: [A-Za-z]+)*$/;
 
+function normalizeUsernameInput(input) {
+  const startsWithAt = input.value.startsWith('@');
+  const allowedCharacters = input.value.replace(/@/g, '').replace(/[^A-Za-z0-9_]/g, '').slice(0, 32);
+  input.value = `${startsWithAt ? '@' : ''}${allowedCharacters}`;
+  input.setCustomValidity('');
+}
+
+function isHttpsNftLink(value) {
   try {
-    const base64 = value.replace(/-/g, '+').replace(/_/g, '/');
-    const bytes = Uint8Array.from(atob(base64), (character) => character.charCodeAt(0));
-    if (bytes.length !== 36) return false;
-
-    const tag = bytes[0] & 0x7f;
-    if (tag !== 0x11 && tag !== 0x51) return false;
-
-    let checksum = 0;
-    for (let index = 0; index < 34; index += 1) {
-      checksum ^= bytes[index] << 8;
-      for (let bit = 0; bit < 8; bit += 1) {
-        checksum = checksum & 0x8000 ? (checksum << 1) ^ 0x1021 : checksum << 1;
-      }
-      checksum &= 0xffff;
-    }
-
-    return bytes[34] === (checksum >> 8) && bytes[35] === (checksum & 0xff);
+    const url = new URL(value);
+    return url.protocol === 'https:' && Boolean(url.hostname) && url.pathname !== '/' && !url.username && !url.password;
   } catch {
     return false;
   }
 }
 
-function setContactMethod(method) {
-  contactMethod = method;
-  document.querySelectorAll('.sale-method-button').forEach((button) => {
-    const isSelected = button.dataset.contactMethod === method;
-    button.classList.toggle('is-active', isSelected);
-    button.setAttribute('aria-pressed', String(isSelected));
+function setNftReferenceMode(mode) {
+  nftReferenceMode = mode;
+  nftReferenceModeButtons.forEach((button) => {
+    const selected = button.dataset.referenceMode === mode;
+    button.classList.toggle('is-active', selected);
+    button.setAttribute('aria-pressed', String(selected));
   });
 
-  const isTelegram = method === 'telegram';
-  const isSbp = method === 'sbp';
-  contactLabel.textContent = isTelegram ? 'Юзернейм продавца Telegram' : isSbp ? 'Телефон продавца для СБП' : 'Крипто-адрес TON';
-  contactInput.placeholder = isTelegram ? '@username' : isSbp ? '+7 900 123-45-67' : 'TON-адрес, 48 символов';
-  contactInput.autocomplete = isTelegram ? 'username' : isSbp ? 'tel' : 'off';
-  contactInput.inputMode = isSbp ? 'tel' : 'text';
-  contactInput.value = '';
-  contactInput.setCustomValidity('');
-  sellerUsernameField.hidden = isTelegram;
-  sellerUsernameInput.required = !isTelegram;
-  sellerUsernameInput.value = '';
-  sellerUsernameInput.setCustomValidity('');
+  const isModel = mode === 'model';
+  nftReferenceLabel.textContent = isModel ? 'Модель NFT' : 'Ссылка на NFT';
+  nftReferenceInput.placeholder = isModel ? 'Например, Plush Pepe' : 'https://t.me/nft/...';
+  nftReferenceInput.inputMode = isModel ? 'text' : 'url';
+  nftReferenceHint.textContent = isModel ? 'Только английские буквы и пробелы.' : 'Вставь полную ссылку, начинающуюся с https://.';
+  nftReferenceInput.value = '';
+  nftReferenceInput.setCustomValidity('');
 }
 
-document.querySelectorAll('.sale-method-button').forEach((button) => {
-  button.addEventListener('click', () => setContactMethod(button.dataset.contactMethod));
+[sellerUsernameInput, buyerUsernameInput].forEach((input) => {
+  input.addEventListener('input', () => normalizeUsernameInput(input));
+});
+
+nftPriceInput.addEventListener('input', () => {
+  nftPriceInput.value = nftPriceInput.value.replace(/[^0-9]/g, '').slice(0, 10);
+  nftPriceInput.setCustomValidity('');
+});
+
+nftReferenceInput.addEventListener('input', () => {
+  if (nftReferenceMode === 'model') {
+    nftReferenceInput.value = nftReferenceInput.value
+      .replace(/[^A-Za-z ]/g, '')
+      .replace(/ {2,}/g, ' ')
+      .replace(/^ +/, '');
+  }
+  nftReferenceInput.setCustomValidity('');
+});
+
+nftReferenceModeButtons.forEach((button) => {
+  button.addEventListener('click', () => setNftReferenceMode(button.dataset.referenceMode));
 });
 
 saleDialog.addEventListener('close', () => {
   saleForm.reset();
-  setContactMethod('telegram');
+  setNftReferenceMode('model');
 });
 
 saleForm.addEventListener('submit', (event) => {
   event.preventDefault();
-  const value = contactInput.value.trim();
-  const normalizedPhone = value.replace(/[\s()-]/g, '');
-  contactInput.value = contactMethod === 'sbp' ? normalizedPhone : value;
-  contactInput.setCustomValidity('');
-  sellerUsernameInput.setCustomValidity('');
+  const sellerUsername = sellerUsernameInput.value.trim();
   buyerUsernameInput.setCustomValidity('');
+  sellerUsernameInput.setCustomValidity('');
+  nftPriceInput.setCustomValidity('');
+  nftReferenceInput.setCustomValidity('');
 
+  if (!telegramUsernamePattern.test(sellerUsername)) {
+    sellerUsernameInput.setCustomValidity('Введи Telegram-юзернейм: латинская буква в начале, затем буквы, цифры или _ (5–32 символа).');
+  }
   const buyerUsername = buyerUsernameInput.value.trim();
-  const sellerUsername = contactMethod === 'telegram' ? value : sellerUsernameInput.value.trim();
-  const usernamePattern = /^@?[A-Za-z0-9_]{5,32}$/;
-
-  if (!value) {
-    contactInput.setCustomValidity(contactMethod === 'telegram' ? 'Введи Telegram-юзернейм продавца.' : 'Введи реквизиты продавца.');
-  } else if (contactMethod === 'telegram' && !/^@?[A-Za-z0-9_]{5,32}$/.test(value)) {
-    contactInput.setCustomValidity('Юзернейм должен содержать от 5 до 32 латинских букв, цифр или подчёркиваний.');
-  } else if (contactMethod === 'wallet' && !isValidTonAddress(value)) {
-    contactInput.setCustomValidity('Введи корректный крипто-адрес TON.');
-  } else if (contactMethod === 'sbp' && !/^(?:89\d{9}|\+79\d{9})$/.test(normalizedPhone)) {
-    contactInput.setCustomValidity('Введи корректный номер для СБП, начинающийся с 89 или +79.');
+  if (!telegramUsernamePattern.test(buyerUsername)) {
+    buyerUsernameInput.setCustomValidity('Введи Telegram-юзернейм покупателя: латинская буква в начале, затем буквы, цифры или _ (5–32 символа).');
   }
 
-  if (!usernamePattern.test(buyerUsername)) {
-    buyerUsernameInput.setCustomValidity('Введи юзернейм покупателя: 5–32 латинских буквы, цифры или подчёркивания.');
+  const desiredPrice = nftPriceInput.value.trim();
+  if (!/^[0-9]{1,10}$/.test(desiredPrice) || Number(desiredPrice) < 1) {
+    nftPriceInput.setCustomValidity('Укажи цену целым положительным числом, только цифрами.');
   }
-  if (contactMethod !== 'telegram' && !usernamePattern.test(sellerUsername)) {
-    sellerUsernameInput.setCustomValidity('Введи свой Telegram-юзернейм: 5–32 латинских буквы, цифры или подчёркивания.');
+
+  const nftReference = nftReferenceInput.value.trim();
+  if (nftReferenceMode === 'model') {
+    nftReferenceInput.value = nftReference.replace(/\s+/g, ' ');
+    if (!englishModelPattern.test(nftReferenceInput.value)) {
+      nftReferenceInput.setCustomValidity('Модель можно указать только английскими буквами и одиночными пробелами.');
+    }
+  } else if (!isHttpsNftLink(nftReference)) {
+    nftReferenceInput.setCustomValidity('Вставь корректную HTTPS-ссылку на NFT.');
   }
 
   if (!saleForm.reportValidity()) return;
 
-  const methodLabels = {
-    telegram: 'Telegram',
-    wallet: 'TON-криптоадрес',
-    sbp: 'СБП',
-  };
   const normalizedSeller = sellerUsername.startsWith('@') ? sellerUsername : `@${sellerUsername}`;
   const normalizedBuyer = buyerUsername.startsWith('@') ? buyerUsername : `@${buyerUsername}`;
   const messageLines = [
     'Заявка на сделку AETHERS COLLECTIVE',
-    `NFT: ${nftNameInput.value.trim()}`,
-    `Модель/ссылка: ${nftModelInput.value.trim() || 'не указана'}`,
-    `Желаемая цена: ${nftPriceInput.value.trim()} Telegram Stars`,
     `Продавец: ${normalizedSeller}`,
     `Покупатель: ${normalizedBuyer}`,
-    `Контакт или реквизиты продавца (${methodLabels[contactMethod]}): ${contactMethod === 'telegram' ? normalizedSeller : contactInput.value.trim()}`,
+    `Желаемая цена: ${desiredPrice} Telegram Stars`,
+    `${nftReferenceMode === 'model' ? 'Модель NFT' : 'Ссылка на NFT'}: ${nftReferenceInput.value.trim()}`,
   ];
   proposalMessage.value = messageLines.join('\n');
   copyStatus.textContent = '';

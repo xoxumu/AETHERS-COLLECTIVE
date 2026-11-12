@@ -611,44 +611,8 @@ img, svg, video { max-width: 100%; }
 
 .js-open-sale { cursor: pointer; }
 .js-open-sale:focus-visible { outline: 3px solid rgba(13,91,137,.45); outline-offset: 4px; }
-.sale-dialog .form-field > .sale-field-label { display: block; margin: 0; color: #31546c; }
-.sale-methods { min-width: 0; margin: 0 0 1rem; padding: 0; border: 0; }
-.sale-methods legend { margin-bottom: .5rem; color: #31546c; font-size: .875rem; font-weight: 700; }
-.sale-method-switch { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem; }
-.sale-method-button {
-  min-height: 48px;
-  padding: .65rem .75rem;
-  border: 1px solid rgba(62,133,177,.2);
-  border-radius: 12px;
-  color: #24536f;
-  background: rgba(255,255,255,.62);
-  cursor: pointer;
-  font: inherit;
-  font-size: .875rem;
-  font-weight: 700;
-  transition: transform .24s var(--motion-spring), background .2s ease;
-}
-.sale-method-button:focus-visible { outline: 3px solid rgba(13,91,137,.45); outline-offset: 2px; }
-.sale-method-button:active { transform: scale(.98); }
-.sale-method-button.is-active { color: #fff; background: linear-gradient(110deg, #66b9e8, #238bc9); }
-.sale-method-button:nth-child(3) { grid-column: 1 / -1; }
-.sale-contact-summary {
-  display: grid;
-  gap: .35rem;
-  margin: 1rem 0;
-  padding: .875rem 1rem;
-  border: 1px solid rgba(68,131,170,.2);
-  border-radius: 14px;
-  color: #34576f;
-  background: rgba(232,245,253,.72);
-  font-size: .8125rem;
-}
-.sale-contact-summary strong { color: #102d43; overflow-wrap: anywhere; font-size: .95rem; }
 .sale-welcome-content .dialog-header h2 { max-width: 20ch; font-size: clamp(1.5rem, 5vw, 2rem); line-height: 1.08; }
 .sale-bot-link { text-decoration: none; }
-@media (hover: hover) and (pointer: fine) {
-  .sale-method-button:hover { transform: translateY(-1px); }
-}
 
 @media (min-width: 621px) {
   .collection-card p, .step-card p, .process-note p, .cta-content > p:not(.section-kicker),
@@ -658,7 +622,7 @@ img, svg, video { max-width: 100%; }
 
 /* Rounded Nunito lettering and the expanded sale/catalog flow. */
 :root { font-family: 'Nunito', 'Manrope', sans-serif; }
-h1, h2, h3, .brand-name, .button, .collection-filter, .sale-method-button, .flow-tab {
+h1, h2, h3, .brand-name, .button, .collection-filter, .nft-reference-mode, .flow-tab {
   font-family: 'Nunito', 'Manrope', sans-serif;
 }
 h1, h2, h3 { letter-spacing: -.035em; }
@@ -678,21 +642,26 @@ h1, h2, h3 { letter-spacing: -.035em; }
 .collection-more { display: inline-flex; align-items: center; gap: .4rem; margin-top: .8rem; color: #075e90; font-size: .875rem; font-weight: 800; }
 .collection-more > span { transition: transform .2s ease; }
 .collection-card:hover .collection-more > span { transform: translate(2px,-2px); }
-.sale-form-row { grid-template-columns: minmax(0,1fr) minmax(0,1.15fr); align-items: start; }
-.sale-form-row .form-field { min-width: 0; }
-.seller-username-field[hidden], .flow-panel[hidden] { display: none !important; }
-.sale-dialog .form-field { gap: .45rem; margin-bottom: .9rem; color: #31546c; font-size: .875rem; font-weight: 800; }
-.sale-dialog .form-field > .sale-field-label { display: block; margin: 0; color: #31546c; font-size: .875rem; line-height: 1.35; font-weight: 800; }
+.flow-panel[hidden] { display: none !important; }
+.sale-dialog .form-field { gap: .45rem; margin-bottom: .9rem; color: #31546c; font-size: .9375rem; font-weight: 900; }
+.sale-dialog .form-field > .sale-field-label { display: block; margin: 0; color: #244f6b; font-size: .9375rem; line-height: 1.35; font-weight: 900; }
 .sale-dialog .form-field input, .sale-dialog .form-field textarea {
   width: 100%; min-height: 48px; padding: .75rem .875rem; border: 1px solid rgba(62,133,177,.23); border-radius: 13px;
-  color: #102d43; background: rgba(255,255,255,.77); font: 600 1rem/1.4 'Nunito','Manrope',sans-serif;
+  color: #102d43; background: rgba(255,255,255,.77); font: 800 1rem/1.4 'Nunito','Manrope',sans-serif;
 }
 .sale-dialog .form-field input::placeholder, .sale-dialog .form-field textarea::placeholder { color: #6d8798; opacity: 1; }
 .sale-dialog .form-field input:focus, .sale-dialog .form-field textarea:focus { border-color: #4aabe0; background: #fff; }
 .sale-dialog .form-field input:focus-visible, .sale-dialog .form-field textarea:focus-visible { outline: 3px solid rgba(74,171,224,.2); }
-.sale-dialog .form-field textarea { min-height: 9rem; resize: vertical; font-size: .9rem; }
-.sale-method-switch { grid-template-columns: repeat(3,minmax(0,1fr)); }
-.sale-method-button:nth-child(3) { grid-column: auto; }
+.sale-dialog .dialog-description { color: #315d78; font-size: .95rem; font-weight: 700; line-height: 1.6; }
+.sale-dialog .dialog-header h2 { color: #123b58; font-weight: 900; }
+.nft-reference-field { min-width: 0; margin: 0 0 .85rem; padding: 0; border: 0; }
+.nft-reference-field legend { margin-bottom: .5rem; color: #244f6b; font-size: .9375rem; font-weight: 900; }
+.nft-reference-switch { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem; }
+.nft-reference-mode { min-height: 48px; padding: .65rem .75rem; border: 1px solid rgba(62,133,177,.22); border-radius: 12px; color: #24536f; background: rgba(255,255,255,.62); cursor: pointer; font: 900 .9375rem/1.2 'Nunito','Manrope',sans-serif; transition: transform .22s var(--motion-spring), background .2s ease, color .2s ease; }
+.nft-reference-mode.is-active { color: #fff; background: linear-gradient(110deg,#66b9e8,#238bc9); }
+.nft-reference-mode:focus-visible { outline: 3px solid rgba(13,91,137,.45); outline-offset: 2px; }
+.nft-reference-mode:active { transform: scale(.985); }
+.nft-reference-hint { margin: -.4rem 0 1rem; color: #456b83; font-size: .875rem; font-weight: 700; line-height: 1.4; }
 .flow-tabs { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .5rem; margin: 1.1rem 0 .85rem; padding: .3rem; border: 1px solid rgba(62,133,177,.18); border-radius: 15px; background: rgba(226,243,253,.55); }
 .flow-tab { min-height: 48px; padding: .65rem .9rem; border: 0; border-radius: 11px; color: #31546c; background: transparent; cursor: pointer; font-size: .95rem; font-weight: 900; transition: color .2s ease, background .2s ease, transform .2s ease; }
 .flow-tab.is-active { color: #fff; background: linear-gradient(110deg,#66b9e8,#238bc9); box-shadow: 0 5px 16px rgba(35,139,201,.18); }
@@ -715,6 +684,17 @@ h1, h2, h3 { letter-spacing: -.035em; }
 .collection-detail-art { width: 100%; aspect-ratio: 4 / 3; margin: 1.1rem 0; display: grid; place-items: center; overflow: hidden; border: 1px solid rgba(255,255,255,.6); border-radius: 18px; background: linear-gradient(145deg,rgba(198,233,252,.72),rgba(255,255,255,.46)); }
 .collection-detail-art img { width: 100%; height: 100%; object-fit: contain; }
 .detail-dialog .dialog-description { color: #31546c; }
+
+/* A firmer, clearer type hierarchy across the whole site. */
+body { font-weight: 600; }
+h1, h2, h3, .hero h1, .section-heading h2, .cta-content h2 { font-weight: 800; }
+.collection-card h3, .step-card h3, .faq-item summary, .support-panel h2 { font-weight: 800; }
+.section-intro, .collection-card p, .step-card p, .process-note p,
+.cta-content > p:not(.section-kicker), .faq-item p, .support-panel p:not(.section-kicker),
+.site-footer p, .main-nav a { font-weight: 600; }
+.section-kicker, .collection-meta, .step-number, .gift-serial, .card-overline,
+.art-caption, .fine-print, .support-status { font-weight: 700; }
+
 @media (hover:hover) and (pointer:fine) {
   .collection-filter:hover { transform: translateY(-2px); }
   .flow-tab:hover:not(.is-active) { background: rgba(255,255,255,.7); }
@@ -723,9 +703,8 @@ h1, h2, h3 { letter-spacing: -.035em; }
   .collection-toolbar { display: block; margin-top: 1.2rem; }
   .collection-filters { justify-content: flex-start; flex-wrap: nowrap; overflow-x: auto; margin: .65rem -1rem 0; padding: 0 1rem .5rem; scrollbar-width: thin; }
   .collection-filter { flex: 0 0 auto; }
-  .sale-method-switch { grid-template-columns: 1fr; }
-  .sale-method-button:nth-child(3) { grid-column: auto; }
-  .sale-form-row { grid-template-columns: 1fr; gap: 0; }
+  .nft-reference-field { margin-bottom: .75rem; }
+  .nft-reference-hint { font-size: .875rem; }
   .flow-panel { padding: .85rem; }
   .trade-instructions { gap: .7rem; font-size: .9rem; }
   .collection-detail-art { border-radius: 14px; }
