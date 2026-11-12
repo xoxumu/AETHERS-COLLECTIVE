@@ -12,7 +12,7 @@
   --cyan: #8de2ef;
   --pink: #fa9ece;
   --mono: 'DM Mono', monospace;
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Nunito', 'Manrope', sans-serif;
   scroll-behavior: smooth;
   scroll-padding-top: 100px;
 }

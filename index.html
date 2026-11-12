@@ -5,27 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preload" as="image" href="assets/liquid-background-photo.jpg" fetchpriority="high" />
     <meta name="theme-color" content="#eff8ff" />
-    <meta
-      name="description"
-      content="AETHERS — предварительная оценка и покупка коллекционных NFT Telegram. Обсудите условия до передачи NFT."
-    />
+    <meta name="description" content="AETHERS COLLECTIVE оценивает и помогает продавать коллекционные NFT Telegram. Оставьте заявку, согласуйте цену в Telegram Stars и оформите сделку через Aethers Bank." />
     <title>AETHERS COLLECTIVE — коллекционные NFT Telegram</title>
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://xoxumu.github.io/AETHERS-COLLECTIVE/" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="ru_RU" />
     <meta property="og:title" content="AETHERS COLLECTIVE — коллекционные NFT Telegram" />
-    <meta
-      property="og:description"
-      content="Предварительная оценка и покупка коллекционных NFT Telegram. Обсудите условия до передачи NFT."
-    />
+    <meta property="og:description" content="Оценка NFT, заявка на сделку и сопровождение через Aethers Bank." />
     <meta property="og:url" content="https://xoxumu.github.io/AETHERS-COLLECTIVE/" />
-    <meta property="og:image" content="https://xoxumu.github.io/AETHERS-COLLECTIVE/assets/aethers-emblem.png" />
+    <meta property="og:image" content="https://xoxumu.github.io/AETHERS-COLLECTIVE/assets/aethers-nft-hero-liquid-glass.png" />
+    <meta property="og:image:alt" content="AETHERS COLLECTIVE — коллекционные NFT на голубом стеклянном фоне" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="AETHERS COLLECTIVE — коллекционные NFT Telegram" />
+    <meta name="twitter:description" content="Оценка NFT, заявка на сделку и сопровождение через Aethers Bank." />
+    <meta name="twitter:image" content="https://xoxumu.github.io/AETHERS-COLLECTIVE/assets/aethers-nft-hero-liquid-glass.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "AETHERS COLLECTIVE",
+        "alternateName": "Aethers Bank",
+        "url": "https://xoxumu.github.io/AETHERS-COLLECTIVE/",
+        "logo": "https://xoxumu.github.io/AETHERS-COLLECTIVE/assets/aethers-emblem.png",
+        "sameAs": [
+          "https://t.me/AethersCollective",
+          "https://t.me/Aethers_HelpBot"
+        ]
+      }
+    </script>
     <link rel="icon" type="image/png" href="assets/aethers-emblem.png?v=4" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800;900&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
@@ -103,14 +116,23 @@
             <div><p class="section-kicker">01 / ЧТО РАССМАТРИВАЕМ</p><h2 id="collection-title">У каждого NFT<br /><span>свой характер</span></h2></div>
             <p class="section-intro">Можно предложить любой коллекционный NFT Telegram. Решение и условия обсуждаем индивидуально.</p>
           </div>
+          <div class="collection-toolbar">
+            <p>Подбери категорию</p>
+            <div class="collection-filters" role="group" aria-label="Фильтр NFT по типу">
+              <button class="collection-filter is-active" type="button" data-filter="all" aria-pressed="true">Все</button>
+              <button class="collection-filter" type="button" data-filter="rare" aria-pressed="false">Редкие</button>
+              <button class="collection-filter" type="button" data-filter="upgraded" aria-pressed="false">Коллекционные</button>
+              <button class="collection-filter" type="button" data-filter="proposal" aria-pressed="false">Предложить NFT</button>
+            </div>
+          </div>
           <div class="collection-grid">
-            <article class="collection-card glass-panel collection-card--violet">
-              <div class="collectible collectible--pepe"><img src="assets/collectible-bag-photo.png" alt="Золотая коллекционная сумка Telegram" width="668" height="459" loading="lazy" decoding="async" /></div><div class="collection-meta"><span>01 — UNIQUE</span><span class="collection-arrow">↗</span></div><h3>Редкие экземпляры</h3><p>Необычные коллекционные NFT Telegram с редким оформлением.</p>
+            <article class="collection-card glass-panel collection-card--violet js-open-details" data-category="rare" data-details="Редкий экземпляр с уникальным оформлением. Для оценки укажи точное название, модель и ссылку на NFT." role="button" tabindex="0" aria-haspopup="dialog" aria-controls="collection-detail-dialog" aria-label="Подробнее: редкие NFT">
+              <div class="collectible collectible--pepe"><img src="assets/collectible-bag-photo.png" alt="Золотая коллекционная сумка Telegram" width="668" height="459" loading="lazy" decoding="async" /></div><div class="collection-meta"><span>01 — UNIQUE</span><span class="collection-arrow">↗</span></div><h3>Редкие экземпляры</h3><p>Необычные коллекционные NFT Telegram с редким оформлением.</p><span class="collection-more">Подробнее <span aria-hidden="true">↗</span></span>
             </article>
-            <article class="collection-card glass-panel collection-card--blue">
-              <div class="collectible collectible--watch"><img src="assets/collectible-watch-photo.png" alt="Золотые коллекционные часы Telegram" width="815" height="620" loading="lazy" decoding="async" /></div><div class="collection-meta"><span>02 — UPGRADED</span><span class="collection-arrow">↗</span></div><h3>Коллекционные</h3><p>NFT, которые уже получили коллекционный облик.</p>
+            <article class="collection-card glass-panel collection-card--blue js-open-details" data-category="upgraded" data-details="Коллекционный NFT с обновлённым обликом. Добавь модель и ссылку — так банку будет проще проверить экземпляр и оценить предложение." role="button" tabindex="0" aria-haspopup="dialog" aria-controls="collection-detail-dialog" aria-label="Подробнее: коллекционные NFT">
+              <div class="collectible collectible--watch"><img src="assets/collectible-watch-photo.png" alt="Золотые коллекционные часы Telegram" width="815" height="620" loading="lazy" decoding="async" /></div><div class="collection-meta"><span>02 — UPGRADED</span><span class="collection-arrow">↗</span></div><h3>Коллекционные</h3><p>NFT, которые уже получили коллекционный облик.</p><span class="collection-more">Подробнее <span aria-hidden="true">↗</span></span>
             </article>
-            <article class="collection-card glass-panel collection-card--pink js-open-sale" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="sale-dialog" aria-label="Продать NFT через AETHERS COLLECTIVE">
+            <article class="collection-card glass-panel collection-card--pink js-open-sale" data-category="proposal" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="sale-dialog" aria-label="Продать NFT через AETHERS COLLECTIVE">
               <div class="collectible collectible--telegram"><svg viewBox="100 140 280 250" aria-hidden="true"><path d="M363.3 169.7l-39.7 187.1c-2.8 13.3-10.9 16.6-22.1 10.4l-61-44.9-29.4 28.3c-3.3 3.3-6.1 6.1-12.5 6.1l4.4-62.2 113.2-102.3c4.9-4.4-1.1-6.9-7.6-2.5l-139.9 88.1-60.3-18.8c-13.1-4.1-13.4-13.1 2.7-19.5l235.7-90.9c11.3-4.4 20.7 7.9 17 21.2z" fill="#fff"/></svg></div><div class="collection-meta"><span>03 — YOURS</span><span class="collection-arrow">↗</span></div><h3>Твоя находка</h3><p>Есть конкретный NFT? Нажми, чтобы продать его.</p>
             </article>
           </div>
@@ -122,11 +144,11 @@
             <p class="section-intro">Никаких скрытых этапов. Сначала знакомимся с NFT, затем фиксируем договорённости.</p>
           </div>
           <div class="steps-grid">
-            <article class="step-card"><span class="step-number">01</span><div class="step-icon">⌕</div><h3>Расскажи о NFT</h3><p>Укажи название, модель или добавь ссылку, если она есть.</p><span class="step-line"></span></article>
-            <article class="step-card"><span class="step-number">02</span><div class="step-icon">◉</div><h3>Обсудим предложение</h3><p>Проверим детали и согласуем цену и способ расчёта.</p><span class="step-line"></span></article>
-            <article class="step-card"><span class="step-number">03</span><div class="step-icon">↗</div><h3>Завершим сделку</h3><p>Действуй только после того, как условия понятны обеим сторонам.</p><span class="step-line"></span></article>
+            <article class="step-card"><span class="step-number">01</span><div class="step-icon">⌕</div><h3>Заполни заявку</h3><p>Укажи NFT, модель или ссылку, цену в Stars и юзернеймы обеих сторон.</p><span class="step-line"></span></article>
+            <article class="step-card"><span class="step-number">02</span><div class="step-icon">◉</div><h3>Согласуй оценку</h3><p>Банк проверит экземпляр и поступление NFT и Stars, затем уточнит согласие сторон.</p><span class="step-line"></span></article>
+            <article class="step-card"><span class="step-number">03</span><div class="step-icon">↗</div><h3>Заверши сделку</h3><p>После подтверждения условий банк передаст NFT покупателю, а Stars продавцу.</p><span class="step-line"></span></article>
           </div>
-          <div class="process-note glass-panel"><span class="note-icon">i</span><p><strong>Не передавай NFT заранее.</strong> Сначала согласуйте цену, порядок сделки и все детали в личной переписке.</p></div>
+          <div class="process-note glass-panel"><span class="note-icon">i</span><p><strong>Для оценки подготовь:</strong> название NFT, модель или ссылку, желаемую цену в Telegram Stars и юзернеймы продавца и покупателя. Сообщение заявки можно скопировать перед переходом в банк.</p></div>
         </section>
 
         <section class="cta-section section" aria-labelledby="cta-title">
@@ -143,9 +165,9 @@
           </div>
           <div class="faq-list">
             <details class="faq-item"><summary aria-expanded="false">Как узнать, сколько стоит мой NFT?<span>+</span></summary><div class="faq-answer"><div class="faq-answer__inner"><p>Пришли название, модель и ссылку на NFT, если она есть. Предварительная оценка зависит от конкретного экземпляра и спроса. Условия покупки обсуждаются отдельно.</p></div></div></details>
-            <details class="faq-item"><summary aria-expanded="false">Нужно ли платить за оценку?<span>+</span></summary><div class="faq-answer"><div class="faq-answer__inner"><p>Нет, отправка предложения через эту форму бесплатна. Форма подготовит текст сообщения в Telegram; ты сам выберешь, кому его отправить.</p></div></div></details>
-            <details class="faq-item"><summary aria-expanded="false">Когда передавать NFT?<span>+</span></summary><div class="faq-answer"><div class="faq-answer__inner"><p>Только после согласования цены, способа расчёта и порядка передачи. Не отправляй NFT до того, как все условия подтверждены.</p></div></div></details>
-            <details class="faq-item"><summary aria-expanded="false">Форма сразу отправляет заявку?<span>+</span></summary><div class="faq-answer"><div class="faq-answer__inner"><p>Нет. Для Telegram-юзернейма откроется бот с подготовленным сообщением, которое ты отправишь сам. Адрес кошелька и телефон СБП сайт не отправляет автоматически.</p></div></div></details>
+            <details class="faq-item"><summary aria-expanded="false">Нужно ли платить за оценку?<span>+</span></summary><div class="faq-answer"><div class="faq-answer__inner"><p>Нет, отправка заявки на оценку бесплатна. После заполнения формы ты скопируешь заявку и сам отправишь её в Aethers Bank.</p></div></div></details>
+            <details class="faq-item"><summary aria-expanded="false">Как проходят расчёты в Stars?<span>+</span></summary><div class="faq-answer"><div class="faq-answer__inner"><p>Покупатель переводит согласованное количество Telegram Stars в Aethers Bank. Банк проверяет поступления и согласие сторон, затем передаёт NFT покупателю, а Stars продавцу.</p></div></div></details>
+            <details class="faq-item"><summary aria-expanded="false">Форма сразу отправляет заявку?<span>+</span></summary><div class="faq-answer"><div class="faq-answer__inner"><p>Нет. Сайт собирает текст заявки только на этой странице. Нажми «Скопировать заявку», открой <a class="inline-telegram-link" href="https://t.me/AethersCollective" target="_blank" rel="noopener noreferrer">@AethersCollective</a> и отправь её в бота вручную.</p></div></div></details>
           </div>
         </section>
 
@@ -166,27 +188,66 @@
 
     <dialog class="offer-dialog glass-panel sale-dialog" id="sale-dialog" aria-labelledby="sale-title">
       <form class="offer-form" id="sale-form" novalidate>
-        <div class="dialog-header"><div><p class="section-kicker">ПРОДАЖА NFT</p><h2 id="sale-title">Оставь контакт</h2></div><button class="dialog-close" type="button" aria-label="Закрыть">×</button></div>
-        <p class="dialog-description">Укажи Telegram, TON-криптоадрес или номер телефона для СБП.</p>
+        <div class="dialog-header"><div><p class="section-kicker">ЗАЯВКА НА СДЕЛКУ</p><h2 id="sale-title">Расскажи о NFT</h2></div><button class="dialog-close" type="button" aria-label="Закрыть">×</button></div>
+        <p class="dialog-description">Заполни данные NFT, укажи цену в Stars и юзернейм покупателя. Заявка появится здесь — её можно скопировать и отправить в банк.</p>
+        <label class="form-field" for="nft-name"><span class="sale-field-label">Название NFT</span><input id="nft-name" name="nftName" type="text" placeholder="Например, Plush Pepe" required maxlength="100" autocomplete="off" /></label>
+        <label class="form-field" for="nft-model"><span class="sale-field-label">Модель или ссылка</span><input id="nft-model" name="nftModel" type="text" placeholder="Название модели или ссылка на NFT" maxlength="300" autocomplete="off" /></label>
+        <div class="form-row sale-form-row">
+          <label class="form-field" for="nft-price"><span class="sale-field-label">Желаемая цена</span><input id="nft-price" name="nftPrice" type="number" inputmode="numeric" min="1" step="1" placeholder="Количество" required /></label>
+          <label class="form-field" for="buyer-username"><span class="sale-field-label">Юзернейм покупателя</span><input id="buyer-username" name="buyerUsername" type="text" placeholder="@username" autocomplete="off" required maxlength="33" /></label>
+        </div>
         <fieldset class="sale-methods">
-          <legend>Способ связи</legend>
+          <legend>Контакт или реквизиты продавца</legend>
           <div class="sale-method-switch">
             <button class="sale-method-button is-active" type="button" data-contact-method="telegram" aria-pressed="true">Telegram</button>
             <button class="sale-method-button" type="button" data-contact-method="wallet" aria-pressed="false">Криптокошелёк</button>
             <button class="sale-method-button" type="button" data-contact-method="sbp" aria-pressed="false">СБП</button>
           </div>
         </fieldset>
-        <label class="form-field sale-contact-field"><span class="sale-field-label" id="contact-label">Юзернейм Telegram</span><input id="contact-value" name="contact" type="text" autocomplete="off" placeholder="@username" required maxlength="160" /></label>
+        <label class="form-field" for="contact-value"><span class="sale-field-label" id="contact-label">Юзернейм продавца Telegram</span><input id="contact-value" name="contact" type="text" autocomplete="off" placeholder="@username" required maxlength="160" /></label>
+        <label class="form-field seller-username-field" for="seller-username" hidden><span class="sale-field-label">Юзернейм продавца</span><input id="seller-username" name="sellerUsername" type="text" placeholder="@username" autocomplete="off" maxlength="33" /></label>
         <button class="button button--primary button--full" type="submit">Продолжить <span aria-hidden="true">↗</span></button>
       </form>
     </dialog>
 
     <dialog class="offer-dialog glass-panel sale-dialog sale-dialog--welcome" id="welcome-dialog" aria-labelledby="welcome-title">
       <div class="offer-form sale-welcome-content">
-        <div class="dialog-header"><div><p class="section-kicker">AETHERS COLLECTIVE</p><h2 id="welcome-title">Добро пожаловать в AETHERS COLLECTIVE</h2></div><button class="dialog-close" type="button" aria-label="Закрыть">×</button></div>
-        <p class="dialog-description">Чтобы обсудить передачу NFT, продолжи диалог с AETHERS COLLECTIVE в Telegram.</p>
-        <div class="sale-contact-summary"><span id="contact-method-summary">Telegram</span><strong id="contact-value-summary"></strong></div>
-        <a class="button button--primary button--full sale-bot-link" href="https://t.me/AethersCollective" target="_blank" rel="noopener noreferrer">Перейти в @AethersCollective <span aria-hidden="true">↗</span></a>
+        <div class="dialog-header"><div><p class="section-kicker">AETHERS COLLECTIVE</p><h2 id="welcome-title">Заявка готова</h2></div><button class="dialog-close" type="button" aria-label="Закрыть">×</button></div>
+        <p class="dialog-description">Скопируй текст заявки. Бот откроется без черновика — отправь сообщение самостоятельно.</p>
+        <label class="form-field proposal-field" for="proposal-message"><span class="sale-field-label">Текст заявки</span><textarea id="proposal-message" rows="7" readonly></textarea></label>
+        <button class="button button--primary button--full copy-proposal" id="copy-proposal" type="button">Скопировать заявку <span aria-hidden="true">⧉</span></button>
+        <p class="copy-status" id="copy-status" role="status" aria-live="polite"></p>
+        <div class="flow-tabs" role="tablist" aria-label="Куда перейти">
+          <button class="flow-tab is-active" id="tab-bank" type="button" role="tab" aria-selected="true" aria-controls="panel-bank" data-flow-tab="bank">Aethers Bank</button>
+          <button class="flow-tab" id="tab-support" type="button" role="tab" aria-selected="false" aria-controls="panel-support" data-flow-tab="support">Поддержка</button>
+        </div>
+        <section class="flow-panel" id="panel-bank" role="tabpanel" aria-labelledby="tab-bank" data-flow-panel="bank">
+          <h3>Как продать NFT через Aethers Collective?</h3>
+          <ol class="trade-instructions">
+            <li><strong>Перейди в банк</strong> — открой <a class="inline-telegram-link" href="https://t.me/AethersCollective" target="_blank" rel="noopener noreferrer">@AethersCollective</a> и начни оформление сделки.</li>
+            <li><strong>Укажи пользователей</strong> — отправь свой Telegram-юзернейм и юзернейм покупателя.</li>
+            <li><strong>Передай NFT</strong> — отправь нам NFT, который хочешь продать.</li>
+            <li><strong>Свяжись с покупателем</strong> — сообщи ему, чтобы он перевёл согласованное количество Telegram Stars в банк.</li>
+            <li><strong>Проверка сделки</strong> — банк проверит поступление NFT и Stars, уточнит согласие обеих сторон и подтвердит условия.</li>
+            <li><strong>Завершение</strong> — после проверки банк передаст NFT покупателю, а Stars продавцу.</li>
+          </ol>
+          <p class="bank-assurance">🛡️ Aethers Collective — безопасное сопровождение сделок между пользователями!</p>
+          <a class="button button--primary button--full sale-bot-link" href="https://t.me/AethersCollective" target="_blank" rel="noopener noreferrer">Перейти в @AethersCollective <span aria-hidden="true">↗</span></a>
+        </section>
+        <section class="flow-panel" id="panel-support" role="tabpanel" aria-labelledby="tab-support" data-flow-panel="support" hidden>
+          <h3>Нужна помощь?</h3>
+          <p>Напиши в поддержку, если не получается оформить заявку или появился вопрос по сделке.</p>
+          <a class="button button--primary button--full" href="https://t.me/Aethers_HelpBot" target="_blank" rel="noopener noreferrer">Открыть поддержку <span aria-hidden="true">↗</span></a>
+        </section>
+      </div>
+    </dialog>
+
+    <dialog class="offer-dialog glass-panel detail-dialog" id="collection-detail-dialog" aria-labelledby="collection-detail-title">
+      <div class="offer-form">
+        <div class="dialog-header"><div><p class="section-kicker">КОЛЛЕКЦИЯ AETHERS</p><h2 id="collection-detail-title">Коллекционный NFT</h2></div><button class="dialog-close" type="button" aria-label="Закрыть">×</button></div>
+        <div class="collection-detail-art"><img id="collection-detail-image" src="assets/collectible-bag-photo.png" alt="" /></div>
+        <p class="dialog-description" id="collection-detail-description"></p>
+        <button class="button button--primary button--full js-open-dialog" type="button">Оставить заявку <span aria-hidden="true">↗</span></button>
       </div>
     </dialog>
   </body>

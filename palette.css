@@ -655,3 +655,78 @@ img, svg, video { max-width: 100%; }
   .support-panel p:not(.section-kicker), .dialog-description, .form-note { font-size: 13px; line-height: 1.65; }
   .collection-meta, .step-number, .support-status, .section-kicker { font-size: 12px; }
 }
+
+/* Rounded Nunito lettering and the expanded sale/catalog flow. */
+:root { font-family: 'Nunito', 'Manrope', sans-serif; }
+h1, h2, h3, .brand-name, .button, .collection-filter, .sale-method-button, .flow-tab {
+  font-family: 'Nunito', 'Manrope', sans-serif;
+}
+h1, h2, h3 { letter-spacing: -.035em; }
+.collection-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin: 1.5rem 0 1rem; }
+.collection-toolbar > p { margin: 0; color: #31546c; font-size: .9rem; font-weight: 800; }
+.collection-filters { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: .5rem; }
+.collection-filter {
+  min-height: 48px; padding: .65rem 1rem; border: 1px solid rgba(62,133,177,.22); border-radius: 999px;
+  color: #24536f; background: rgba(255,255,255,.54); cursor: pointer; font-size: .875rem; font-weight: 800;
+  transition: transform .24s var(--motion-spring), background .2s ease, color .2s ease, border-color .2s ease;
+}
+.collection-filter.is-active { color: #fff; border-color: rgba(24,132,194,.55); background: linear-gradient(110deg,#66b9e8,#238bc9); }
+.collection-filter:focus-visible, .flow-tab:focus-visible { outline: 3px solid rgba(13,91,137,.45); outline-offset: 3px; }
+.collection-card.js-open-details { cursor: pointer; }
+.collection-card[hidden] { display: none !important; }
+.collection-card:focus-visible { outline: 3px solid rgba(13,91,137,.48); outline-offset: 4px; }
+.collection-more { display: inline-flex; align-items: center; gap: .4rem; margin-top: .8rem; color: #075e90; font-size: .875rem; font-weight: 800; }
+.collection-more > span { transition: transform .2s ease; }
+.collection-card:hover .collection-more > span { transform: translate(2px,-2px); }
+.sale-form-row { grid-template-columns: minmax(0,1fr) minmax(0,1.15fr); align-items: start; }
+.sale-form-row .form-field { min-width: 0; }
+.seller-username-field[hidden], .flow-panel[hidden] { display: none !important; }
+.sale-dialog .form-field { gap: .45rem; margin-bottom: .9rem; color: #31546c; font-size: .875rem; font-weight: 800; }
+.sale-dialog .form-field > .sale-field-label { display: block; margin: 0; color: #31546c; font-size: .875rem; line-height: 1.35; font-weight: 800; }
+.sale-dialog .form-field input, .sale-dialog .form-field textarea {
+  width: 100%; min-height: 48px; padding: .75rem .875rem; border: 1px solid rgba(62,133,177,.23); border-radius: 13px;
+  color: #102d43; background: rgba(255,255,255,.77); font: 600 1rem/1.4 'Nunito','Manrope',sans-serif;
+}
+.sale-dialog .form-field input::placeholder, .sale-dialog .form-field textarea::placeholder { color: #6d8798; opacity: 1; }
+.sale-dialog .form-field input:focus, .sale-dialog .form-field textarea:focus { border-color: #4aabe0; background: #fff; }
+.sale-dialog .form-field input:focus-visible, .sale-dialog .form-field textarea:focus-visible { outline: 3px solid rgba(74,171,224,.2); }
+.sale-dialog .form-field textarea { min-height: 9rem; resize: vertical; font-size: .9rem; }
+.sale-method-switch { grid-template-columns: repeat(3,minmax(0,1fr)); }
+.sale-method-button:nth-child(3) { grid-column: auto; }
+.flow-tabs { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .5rem; margin: 1.1rem 0 .85rem; padding: .3rem; border: 1px solid rgba(62,133,177,.18); border-radius: 15px; background: rgba(226,243,253,.55); }
+.flow-tab { min-height: 48px; padding: .65rem .9rem; border: 0; border-radius: 11px; color: #31546c; background: transparent; cursor: pointer; font-size: .95rem; font-weight: 900; transition: color .2s ease, background .2s ease, transform .2s ease; }
+.flow-tab.is-active { color: #fff; background: linear-gradient(110deg,#66b9e8,#238bc9); box-shadow: 0 5px 16px rgba(35,139,201,.18); }
+.flow-panel { padding: 1rem; border: 1px solid rgba(62,133,177,.2); border-radius: 16px; background: rgba(239,249,255,.7); }
+.flow-panel h3 { margin: 0 0 .85rem; color: #102d43; font-size: clamp(1.15rem,4vw,1.4rem); line-height: 1.2; }
+.flow-panel > p:not(.bank-assurance) { margin: 0 0 1rem; color: #31546c; font-size: .95rem; line-height: 1.6; }
+.trade-instructions { display: grid; gap: .65rem; margin: 0; padding-left: 1.35rem; color: #31546c; font-size: .9rem; line-height: 1.55; }
+.trade-instructions li { padding-left: .15rem; }
+.trade-instructions strong { color: #102d43; }
+.trade-instructions li::marker { color: #1689c8; font-weight: 900; }
+.inline-telegram-link { color: #087dbb; font-weight: 900; text-decoration: underline; text-decoration-color: rgba(8,125,187,.42); text-underline-offset: .16em; overflow-wrap: anywhere; }
+.inline-telegram-link:hover { color: #045d90; text-decoration-color: currentColor; }
+.inline-telegram-link:focus-visible { outline: 2px solid rgba(13,91,137,.45); outline-offset: 3px; border-radius: 3px; }
+.bank-assurance { margin: 1rem 0; padding: .75rem .85rem; border: 1px solid rgba(62,133,177,.17); border-radius: 12px; color: #184a68; background: rgba(214,239,253,.7); font-size: .9rem; font-weight: 800; line-height: 1.5; }
+.sale-bot-link, .flow-panel .button { min-height: 50px; text-decoration: none; }
+.proposal-field { margin-bottom: .55rem !important; }
+.copy-proposal { min-height: 50px; font-size: .95rem; }
+.copy-status { min-height: 1.35rem; margin: .4rem 0 0; color: #146b42; font-size: .875rem; font-weight: 800; text-align: center; }
+.detail-dialog { width: min(500px,calc(100% - 28px)); }
+.collection-detail-art { width: 100%; aspect-ratio: 4 / 3; margin: 1.1rem 0; display: grid; place-items: center; overflow: hidden; border: 1px solid rgba(255,255,255,.6); border-radius: 18px; background: linear-gradient(145deg,rgba(198,233,252,.72),rgba(255,255,255,.46)); }
+.collection-detail-art img { width: 100%; height: 100%; object-fit: contain; }
+.detail-dialog .dialog-description { color: #31546c; }
+@media (hover:hover) and (pointer:fine) {
+  .collection-filter:hover { transform: translateY(-2px); }
+  .flow-tab:hover:not(.is-active) { background: rgba(255,255,255,.7); }
+}
+@media (max-width:620px) {
+  .collection-toolbar { display: block; margin-top: 1.2rem; }
+  .collection-filters { justify-content: flex-start; flex-wrap: nowrap; overflow-x: auto; margin: .65rem -1rem 0; padding: 0 1rem .5rem; scrollbar-width: thin; }
+  .collection-filter { flex: 0 0 auto; }
+  .sale-method-switch { grid-template-columns: 1fr; }
+  .sale-method-button:nth-child(3) { grid-column: auto; }
+  .sale-form-row { grid-template-columns: 1fr; gap: 0; }
+  .flow-panel { padding: .85rem; }
+  .trade-instructions { gap: .7rem; font-size: .9rem; }
+  .collection-detail-art { border-radius: 14px; }
+}

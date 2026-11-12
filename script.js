@@ -3,9 +3,20 @@ const welcomeDialog = document.querySelector('#welcome-dialog');
 const saleForm = document.querySelector('#sale-form');
 const contactInput = document.querySelector('#contact-value');
 const contactLabel = document.querySelector('#contact-label');
-const contactValueSummary = document.querySelector('#contact-value-summary');
-const contactMethodSummary = document.querySelector('#contact-method-summary');
 const saleBotLink = document.querySelector('.sale-bot-link');
+const sellerUsernameField = document.querySelector('.seller-username-field');
+const sellerUsernameInput = document.querySelector('#seller-username');
+const buyerUsernameInput = document.querySelector('#buyer-username');
+const nftNameInput = document.querySelector('#nft-name');
+const nftModelInput = document.querySelector('#nft-model');
+const nftPriceInput = document.querySelector('#nft-price');
+const proposalMessage = document.querySelector('#proposal-message');
+const copyProposalButton = document.querySelector('#copy-proposal');
+const copyStatus = document.querySelector('#copy-status');
+const collectionDetailDialog = document.querySelector('#collection-detail-dialog');
+const collectionDetailTitle = document.querySelector('#collection-detail-title');
+const collectionDetailDescription = document.querySelector('#collection-detail-description');
+const collectionDetailImage = document.querySelector('#collection-detail-image');
 const menuToggle = document.querySelector('.menu-toggle');
 const mainNav = document.querySelector('#main-nav');
 let contactMethod = 'telegram';
@@ -191,6 +202,7 @@ if (window.matchMedia('(min-width: 851px)').matches && !reduceMotion) {
 }
 
 function openSaleDialog() {
+  if (collectionDetailDialog.open) collectionDetailDialog.close();
   if (!saleDialog.open) saleDialog.showModal();
 }
 
@@ -203,6 +215,41 @@ document.querySelectorAll('.js-open-sale').forEach((trigger) => {
     if (event.key !== 'Enter' && event.key !== ' ') return;
     event.preventDefault();
     openSaleDialog();
+  });
+});
+
+const collectionCards = [...document.querySelectorAll('.collection-card[data-category]')];
+document.querySelectorAll('.collection-filter').forEach((button) => {
+  button.addEventListener('click', () => {
+    const filter = button.dataset.filter;
+    document.querySelectorAll('.collection-filter').forEach((filterButton) => {
+      const selected = filterButton === button;
+      filterButton.classList.toggle('is-active', selected);
+      filterButton.setAttribute('aria-pressed', String(selected));
+    });
+    collectionCards.forEach((card) => {
+      card.hidden = filter !== 'all' && card.dataset.category !== filter;
+    });
+  });
+});
+
+function openCollectionDetails(card) {
+  const image = card.querySelector('.collectible img');
+  collectionDetailTitle.textContent = card.querySelector('h3').textContent;
+  collectionDetailDescription.textContent = card.dataset.details || '';
+  if (image) {
+    collectionDetailImage.src = image.currentSrc || image.src;
+    collectionDetailImage.alt = image.alt;
+  }
+  if (!collectionDetailDialog.open) collectionDetailDialog.showModal();
+}
+
+document.querySelectorAll('.js-open-details').forEach((card) => {
+  card.addEventListener('click', () => openCollectionDetails(card));
+  card.addEventListener('keydown', (event) => {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    event.preventDefault();
+    openCollectionDetails(card);
   });
 });
 
@@ -252,12 +299,16 @@ function setContactMethod(method) {
 
   const isTelegram = method === 'telegram';
   const isSbp = method === 'sbp';
-  contactLabel.textContent = isTelegram ? 'Юзернейм Telegram' : isSbp ? 'Номер телефона для СБП' : 'Крипто-адрес TON';
+  contactLabel.textContent = isTelegram ? 'Юзернейм продавца Telegram' : isSbp ? 'Телефон продавца для СБП' : 'Крипто-адрес TON';
   contactInput.placeholder = isTelegram ? '@username' : isSbp ? '+7 900 123-45-67' : 'TON-адрес, 48 символов';
   contactInput.autocomplete = isTelegram ? 'username' : isSbp ? 'tel' : 'off';
   contactInput.inputMode = isSbp ? 'tel' : 'text';
   contactInput.value = '';
   contactInput.setCustomValidity('');
+  sellerUsernameField.hidden = isTelegram;
+  sellerUsernameInput.required = !isTelegram;
+  sellerUsernameInput.value = '';
+  sellerUsernameInput.setCustomValidity('');
 }
 
 document.querySelectorAll('.sale-method-button').forEach((button) => {
@@ -275,9 +326,15 @@ saleForm.addEventListener('submit', (event) => {
   const normalizedPhone = value.replace(/[\s()-]/g, '');
   contactInput.value = contactMethod === 'sbp' ? normalizedPhone : value;
   contactInput.setCustomValidity('');
+  sellerUsernameInput.setCustomValidity('');
+  buyerUsernameInput.setCustomValidity('');
+
+  const buyerUsername = buyerUsernameInput.value.trim();
+  const sellerUsername = contactMethod === 'telegram' ? value : sellerUsernameInput.value.trim();
+  const usernamePattern = /^@?[A-Za-z0-9_]{5,32}$/;
 
   if (!value) {
-    contactInput.setCustomValidity('Введи контакт для связи.');
+    contactInput.setCustomValidity(contactMethod === 'telegram' ? 'Введи Telegram-юзернейм продавца.' : 'Введи реквизиты продавца.');
   } else if (contactMethod === 'telegram' && !/^@?[A-Za-z0-9_]{5,32}$/.test(value)) {
     contactInput.setCustomValidity('Юзернейм должен содержать от 5 до 32 латинских букв, цифр или подчёркиваний.');
   } else if (contactMethod === 'wallet' && !isValidTonAddress(value)) {
@@ -286,27 +343,63 @@ saleForm.addEventListener('submit', (event) => {
     contactInput.setCustomValidity('Введи корректный номер для СБП, начинающийся с 89 или +79.');
   }
 
+  if (!usernamePattern.test(buyerUsername)) {
+    buyerUsernameInput.setCustomValidity('Введи юзернейм покупателя: 5–32 латинских буквы, цифры или подчёркивания.');
+  }
+  if (contactMethod !== 'telegram' && !usernamePattern.test(sellerUsername)) {
+    sellerUsernameInput.setCustomValidity('Введи свой Telegram-юзернейм: 5–32 латинских буквы, цифры или подчёркивания.');
+  }
+
   if (!saleForm.reportValidity()) return;
 
-  const summaryLabels = {
-    telegram: 'Юзернейм Telegram',
-    wallet: 'Крипто-адрес TON',
-    sbp: 'Телефон для СБП',
+  const methodLabels = {
+    telegram: 'Telegram',
+    wallet: 'TON-криптоадрес',
+    sbp: 'СБП',
   };
-  const contactValue = contactMethod === 'telegram' && !value.startsWith('@') ? `@${value}` : value;
-  contactMethodSummary.textContent = summaryLabels[contactMethod];
-  contactValueSummary.textContent = contactValue;
+  const normalizedSeller = sellerUsername.startsWith('@') ? sellerUsername : `@${sellerUsername}`;
+  const normalizedBuyer = buyerUsername.startsWith('@') ? buyerUsername : `@${buyerUsername}`;
+  const messageLines = [
+    'Заявка на сделку AETHERS COLLECTIVE',
+    `NFT: ${nftNameInput.value.trim()}`,
+    `Модель/ссылка: ${nftModelInput.value.trim() || 'не указана'}`,
+    `Желаемая цена: ${nftPriceInput.value.trim()} Telegram Stars`,
+    `Продавец: ${normalizedSeller}`,
+    `Покупатель: ${normalizedBuyer}`,
+    `Контакт или реквизиты продавца (${methodLabels[contactMethod]}): ${contactMethod === 'telegram' ? normalizedSeller : contactInput.value.trim()}`,
+  ];
+  proposalMessage.value = messageLines.join('\n');
+  copyStatus.textContent = '';
+  saleBotLink.href = 'https://t.me/AethersCollective';
 
-  const botUrl = new URL('https://t.me/AethersCollective');
-  if (contactMethod === 'telegram') {
-    const draft = `Здравствуйте! Хочу продать NFT. Мой Telegram: ${contactValue}`;
-    botUrl.searchParams.set('text', draft);
-  }
-  saleBotLink.href = botUrl.toString();
-
-  window.open(botUrl.toString(), '_blank', 'noopener,noreferrer');
   saleDialog.close();
   window.requestAnimationFrame(() => welcomeDialog.showModal());
+});
+
+document.querySelectorAll('.flow-tab').forEach((tabButton) => {
+  tabButton.addEventListener('click', () => {
+    const target = tabButton.dataset.flowTab;
+    document.querySelectorAll('.flow-tab').forEach((button) => {
+      const selected = button === tabButton;
+      button.classList.toggle('is-active', selected);
+      button.setAttribute('aria-selected', String(selected));
+      button.tabIndex = selected ? 0 : -1;
+    });
+    document.querySelectorAll('.flow-panel').forEach((panel) => {
+      panel.hidden = panel.dataset.flowPanel !== target;
+    });
+  });
+});
+
+copyProposalButton.addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(proposalMessage.value);
+  } catch {
+    proposalMessage.focus();
+    proposalMessage.select();
+    document.execCommand('copy');
+  }
+  copyStatus.textContent = 'Заявка скопирована';
 });
 
 function setMenuOpen(isOpen) {
