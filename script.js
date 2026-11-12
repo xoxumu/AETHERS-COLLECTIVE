@@ -1,5 +1,7 @@
 const saleDialog = document.querySelector('#sale-dialog');
 const welcomeDialog = document.querySelector('#welcome-dialog');
+const welcomeLoader = document.querySelector('#welcome-loader');
+const premiumOfferDialog = document.querySelector('#premium-offer-dialog');
 const saleForm = document.querySelector('#sale-form');
 const contactInput = document.querySelector('#contact-value');
 const contactLabel = document.querySelector('#contact-label');
@@ -23,6 +25,43 @@ let contactMethod = 'telegram';
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 document.documentElement.classList.add('motion-ready');
+
+welcomeLoader.hidden = false;
+document.querySelector('.page-shell').inert = true;
+const introStartedAt = performance.now();
+const minimumIntroDuration = reduceMotion ? 120 : 900;
+let introFinished = false;
+let introFallback = 0;
+let shouldShowPremiumOffer = true;
+try {
+  shouldShowPremiumOffer = !sessionStorage.getItem('aethers-premium-offer-seen');
+} catch {
+  shouldShowPremiumOffer = true;
+}
+
+function finishWelcomeIntro() {
+  if (introFinished) return;
+  introFinished = true;
+  window.clearTimeout(introFallback);
+  const wait = Math.max(0, minimumIntroDuration - (performance.now() - introStartedAt));
+  window.setTimeout(() => {
+    welcomeLoader.classList.add('is-leaving');
+    window.setTimeout(() => {
+      welcomeLoader.hidden = true;
+      document.querySelector('.page-shell').inert = false;
+      if (!shouldShowPremiumOffer) return;
+      try {
+        sessionStorage.setItem('aethers-premium-offer-seen', 'true');
+      } catch {
+        // The popup still works when browser storage is unavailable.
+      }
+      if (!premiumOfferDialog.open) premiumOfferDialog.showModal();
+    }, reduceMotion ? 0 : 420);
+  }, wait);
+}
+
+window.addEventListener('load', finishWelcomeIntro, { once: true });
+introFallback = window.setTimeout(finishWelcomeIntro, 1500);
 
 const revealTargets = document.querySelectorAll(
   '.section-heading, .collection-card, .step-card, .process-note, .cta-panel, .faq-item, .support-panel'
@@ -202,6 +241,11 @@ if (window.matchMedia('(min-width: 851px)').matches && !reduceMotion) {
 }
 
 function openSaleDialog() {
+  if (premiumOfferDialog.open) {
+    premiumOfferDialog.close();
+    window.requestAnimationFrame(openSaleDialog);
+    return;
+  }
   if (collectionDetailDialog.open) collectionDetailDialog.close();
   if (!saleDialog.open) saleDialog.showModal();
 }
@@ -256,6 +300,8 @@ document.querySelectorAll('.js-open-details').forEach((card) => {
 document.querySelectorAll('.dialog-close').forEach((button) => {
   button.addEventListener('click', () => button.closest('dialog').close());
 });
+
+document.querySelector('.premium-offer-dismiss').addEventListener('click', () => premiumOfferDialog.close());
 
 document.querySelectorAll('.offer-dialog').forEach((currentDialog) => {
   currentDialog.addEventListener('click', (event) => {

@@ -5,20 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preload" as="image" href="assets/liquid-background-photo.jpg" fetchpriority="high" />
     <meta name="theme-color" content="#eff8ff" />
-    <meta name="description" content="AETHERS COLLECTIVE оценивает и помогает продавать коллекционные NFT Telegram. Оставьте заявку, согласуйте цену в Telegram Stars и оформите сделку через Aethers Bank." />
+    <meta name="description" content="AETHERS COLLECTIVE дорого скупает коллекционные NFT-подарки Telegram. Предложите NFT на оценку, обсудите высокую цену и условия сделки через Aethers Bank." />
     <title>AETHERS COLLECTIVE — коллекционные NFT Telegram</title>
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://xoxumu.github.io/AETHERS-COLLECTIVE/" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="ru_RU" />
     <meta property="og:title" content="AETHERS COLLECTIVE — коллекционные NFT Telegram" />
-    <meta property="og:description" content="Оценка NFT, заявка на сделку и сопровождение через Aethers Bank." />
+    <meta property="og:description" content="Дорого скупим коллекционные NFT-подарки Telegram. Оценка и условия сделки через Aethers Bank." />
     <meta property="og:url" content="https://xoxumu.github.io/AETHERS-COLLECTIVE/" />
     <meta property="og:image" content="https://xoxumu.github.io/AETHERS-COLLECTIVE/assets/aethers-nft-hero-liquid-glass.png" />
     <meta property="og:image:alt" content="AETHERS COLLECTIVE — коллекционные NFT на голубом стеклянном фоне" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="AETHERS COLLECTIVE — коллекционные NFT Telegram" />
-    <meta name="twitter:description" content="Оценка NFT, заявка на сделку и сопровождение через Aethers Bank." />
+    <meta name="twitter:description" content="Дорого скупим коллекционные NFT-подарки Telegram. Оценка и условия сделки через Aethers Bank." />
     <meta name="twitter:image" content="https://xoxumu.github.io/AETHERS-COLLECTIVE/assets/aethers-nft-hero-liquid-glass.png" />
     <script type="application/ld+json">
       {
@@ -41,11 +41,20 @@
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800;900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=20261113-2" />
-    <link rel="stylesheet" href="palette.css?v=20261113-2" />
-    <script src="script.js?v=20261113-2" defer></script>
+    <link rel="stylesheet" href="styles.css?v=20261113-3" />
+    <link rel="stylesheet" href="palette.css?v=20261113-3" />
+    <script src="script.js?v=20261113-3" defer></script>
   </head>
   <body>
+    <div class="welcome-loader" id="welcome-loader" role="status" aria-live="polite" aria-label="Загрузка AETHERS COLLECTIVE" hidden>
+      <div class="welcome-loader__card glass-panel">
+        <img src="assets/aethers-emblem.png?v=4" alt="" width="72" height="72" />
+        <p class="section-kicker">AETHERS COLLECTIVE</p>
+        <p class="welcome-loader__greeting">Привет! Добро пожаловать в AETHERS</p>
+        <p class="welcome-loader__message">Поможем оценить NFT и обсудить достойную цену</p>
+        <span class="welcome-loader__progress" aria-hidden="true"><span></span></span>
+      </div>
+    </div>
     <div class="liquid-backdrop" aria-hidden="true"></div>
     <div class="noise-overlay" aria-hidden="true"></div>
     <div class="ambient ambient--one" aria-hidden="true"></div>
@@ -185,6 +194,24 @@
         <a href="#top" class="back-top">Наверх ↑</a>
       </footer>
     </div>
+
+    <dialog class="offer-dialog glass-panel premium-offer-dialog" id="premium-offer-dialog" aria-labelledby="premium-offer-title">
+      <div class="offer-form premium-offer-content">
+        <div class="dialog-header">
+          <div><p class="section-kicker">AETHERS BANK · СКУПКА NFT</p><h2 id="premium-offer-title">Скупаем NFT-подарки дорого</h2></div>
+          <button class="dialog-close" type="button" aria-label="Закрыть предложение">×</button>
+        </div>
+        <p class="dialog-description">Предложи коллекционный подарок Telegram — оценим редкость и обсудим высокую цену до передачи. За редкие и востребованные экземпляры готовы предложить особенно выгодные условия.</p>
+        <div class="premium-offer-points" aria-label="Условия оценки">
+          <span><i aria-hidden="true">✦</i> Индивидуальная оценка NFT</span>
+          <span><i aria-hidden="true">✓</i> Цена и условия заранее</span>
+        </div>
+        <div class="premium-offer-actions">
+          <button class="button button--primary js-open-dialog" type="button">Предложить NFT <span aria-hidden="true">↗</span></button>
+          <button class="button button--quiet premium-offer-dismiss" type="button">Сначала посмотреть сайт</button>
+        </div>
+      </div>
+    </dialog>
 
     <dialog class="offer-dialog glass-panel sale-dialog" id="sale-dialog" aria-labelledby="sale-title">
       <form class="offer-form" id="sale-form" novalidate>
